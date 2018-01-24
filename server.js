@@ -55,7 +55,19 @@ app.use(passport.session());
 //set static folder
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.static(path.join(__dirname,'images')));
+app.use(function(req, res, next) {
 
+   // res.setHeader("Content-Security-Policy", "script-src 'self' https://*.paypalobjects.com");
+
+   // res.setHeader("Content-Security-Policy", "script-src 'self' https://*.paypal.com");
+
+   // res.setHeader("Content-Security-Policy", "script-src 'unsafe-inline' 'unsafe-eval'");
+
+   res.setHeader("Content-Security-Policy","script-src 'nonce-Y7WJf4YCrJrfkBqAtaiJjk9GuOuoE+2qWRaL4K4AmhyOVH6M' 'self' https://*.paypal.com https://*.paypalobjects.com 'unsafe-inline' 'unsafe-eval'");
+
+   return next();
+
+});
 
 require('./config/passport')(passport);
 
